@@ -3,20 +3,29 @@ class QuestionarioService {
     return [
       {
         "pergunta": "Qual o seu animal favorito?",
-        "respostas": ["Cachorro", "Gato", "Passarinho", "Leão", "Outros"]
+        "respostas": [
+          {"texto": "Cachorro", "pontuacao": 10},
+          {"texto": "Gato", "pontuacao": 10},
+          {"texto": "Passarinho", "pontuacao": 4},
+          {"texto": "Leão", "pontuacao": 1},
+        ]
       },
       {
         "pergunta": "Qual a sua cor favorita?",
-        "respostas": ["Azul", "Rosa", "Verde", "Vermelho", "Outros"]
+        "respostas": [
+          {"texto": "Azul", "pontuacao": 10},
+          {"texto": "Rosa", "pontuacao": 10},
+          {"texto": "Verde", "pontuacao": 4},
+          {"texto": "Vermelho", "pontuacao": 1},
+        ]
       },
       {
         "pergunta": "Qual o o seu pais favorito?",
         "respostas": [
-          "Brasil",
-          "Estados Unidos da America",
-          "Austrália",
-          "Itália",
-          "Outros"
+          {"texto": "Brasil", "pontuacao": 10},
+          {"texto": "Estados Unidos da America", "pontuacao": 10},
+          {"texto": "Austrália", "pontuacao": 4},
+          {"texto": "Itália", "pontuacao": 1},
         ]
       }
     ];

@@ -4,6 +4,7 @@ import 'service/index.dart';
 
 class _State extends State<Questionario> {
   var _perguntaSelecionada = 0;
+  var _pontuacaoTotal = 0;
 
   final List<Map<String, Object>> _perguntas;
 
@@ -16,9 +17,11 @@ class _State extends State<Questionario> {
     Pergunta? perguntaWidget;
     if (temPerguntaSelecionada) {
       final pergunta = _perguntas[_perguntaSelecionada];
-      final respostas = pergunta['respostas'] as List;
+      final respostas = pergunta['respostas'] as List<Map<String, Object>>;
       final respostasWidget = respostas
-          .map((e) => Resposta(text: e, onPressed: _responder))
+          .map((e) => Resposta(
+              text: e['texto'] as String,
+              onPressed: () => _responder(e['pontuacao'] as int)))
           .toList();
       perguntaWidget = temPerguntaSelecionada
           ? Pergunta(
@@ -29,7 +32,7 @@ class _State extends State<Questionario> {
 
     var widget = temPerguntaSelecionada
         ? perguntaWidget
-        : const Resultado(texto: "Parabéns");
+        : Resultado(pontuacao: _pontuacaoTotal);
 
     return MaterialApp(
         theme: ThemeData(primarySwatch: Colors.purple),
@@ -40,10 +43,10 @@ class _State extends State<Questionario> {
     return _perguntaSelecionada < _perguntas.length;
   }
 
-  void _responder() {
+  void _responder(int pontuacao) {
     if (temPerguntaSelecionada) {
       setState(() => {_perguntaSelecionada++});
-      print('clique no botão $_perguntaSelecionada');
+      _pontuacaoTotal = _pontuacaoTotal + pontuacao;
     }
   }
 }
