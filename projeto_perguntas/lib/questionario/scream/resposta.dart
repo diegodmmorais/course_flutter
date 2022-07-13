@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class Resposta extends StatelessWidget {
   final Function() _onPressed;
@@ -14,7 +13,7 @@ class Resposta extends StatelessWidget {
         style: TextButton.styleFrom(
             backgroundColor: Colors.purple,
             primary: Colors.white,
-            elevation: 20,
+            elevation: 15,
             shadowColor: Colors.purple),
         child: Text(_text),
       ),

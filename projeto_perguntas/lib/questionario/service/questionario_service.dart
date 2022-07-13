@@ -4,7 +4,7 @@ class QuestionarioService {
       {
         "pergunta": "Qual o seu animal favorito?",
         "respostas": [
-          {"texto": "Cachorro", "pontuacao": 10},
+          {"texto": "Cachorros", "pontuacao": 10},
           {"texto": "Gato", "pontuacao": 10},
           {"texto": "Passarinho", "pontuacao": 4},
           {"texto": "Leão", "pontuacao": 1},

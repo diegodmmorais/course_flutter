@@ -26,12 +26,16 @@ class Resultado extends StatelessWidget {
             child: Text(texto,
                 style: TextStyle(
                   color: color,
-                  fontSize: 16.0,
+                  fontSize: 14.0,
                 ))),
         const SizedBox(height: 10),
         TextButton(
           onPressed: callback,
-          style: TextButton.styleFrom(backgroundColor: Colors.purple),
+          style: TextButton.styleFrom(
+              backgroundColor: Colors.purple,
+              primary: Colors.white,
+              elevation: 15,
+              shadowColor: Colors.purple),
           child: const Text("Voltar", style: TextStyle(color: Colors.white)),
         )
       ],

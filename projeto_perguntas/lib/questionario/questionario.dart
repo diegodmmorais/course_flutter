@@ -59,7 +59,7 @@ class _State extends State<Questionario> {
 }
 
 class Questionario extends StatefulWidget {
-  Questionario({Key? key}) : super(key: key);
+  const Questionario({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() =>
