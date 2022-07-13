@@ -32,11 +32,18 @@ class _State extends State<Questionario> {
 
     var widget = temPerguntaSelecionada
         ? perguntaWidget
-        : Resultado(pontuacao: _pontuacaoTotal);
+        : Resultado(pontuacao: _pontuacaoTotal, callback: _reset);
 
     return MaterialApp(
         theme: ThemeData(primarySwatch: Colors.purple),
         home: Scaffold(appBar: appBar, body: widget));
+  }
+
+  void _reset() {
+    setState(() {
+      _perguntaSelecionada = 0;
+      _pontuacaoTotal = 0;
+    });
   }
 
   bool get temPerguntaSelecionada {

@@ -8,7 +8,7 @@ class Resposta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
+      width: 220.0,
       child: TextButton(
         onPressed: _onPressed,
         style: TextButton.styleFrom(
