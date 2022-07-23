@@ -3,10 +3,11 @@ import 'package:expenses_app/expenses/model/transction.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class CardWidget extends StatelessWidget {
+class TransactionCard extends StatelessWidget {
   final Transaction transaction;
 
-  const CardWidget({Key? key, required this.transaction}) : super(key: key);
+  const TransactionCard({Key? key, required this.transaction})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class CardWidget extends StatelessWidget {
         children: [
           Container(
             alignment: Alignment.topLeft,
-            width: 135.0,
+            width: 140.0,
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(5)),
                 border: Border.all(color: Colors.purple, width: 1.5)),
@@ -26,7 +27,7 @@ class CardWidget extends StatelessWidget {
               'R\$ ${transaction.value.toStringAsFixed(2)}',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 16,
+                fontSize: 14,
                 color: Colors.purple,
               ),
             ),
@@ -38,7 +39,7 @@ class CardWidget extends StatelessWidget {
               children: [
                 Text(transaction.title,
                     style: const TextStyle(
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: FontWeight.bold,
                     )),
                 Text(
