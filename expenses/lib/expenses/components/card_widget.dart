@@ -1,4 +1,5 @@
-import 'package:expenses/expenses/model/transction.dart';
+import 'package:expenses_app/expenses/constants/elevation_enum.dart';
+import 'package:expenses_app/expenses/model/transction.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -10,7 +11,7 @@ class CardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 10.0,
+      elevation: ElevationEnum.dp10.value,
       child: Row(
         children: [
           Container(
@@ -33,7 +34,6 @@ class CardWidget extends StatelessWidget {
           Container(
             margin: const EdgeInsets.fromLTRB(10, 10, 2, 10),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(transaction.title,

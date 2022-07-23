@@ -1,1 +1,1 @@
-export 'scream/home.dart';
+export 'scream/app.dart';
