@@ -9,7 +9,7 @@ class CardInputWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: ElevationEnum.dp10.value,
+      elevation: ElevationEnum.dp12.value,
       child: Container(
         margin: const EdgeInsets.all(10),
         child: Column(

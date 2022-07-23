@@ -38,7 +38,7 @@ class Home extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Card(
-                  elevation: ElevationEnum.dp10.value,
+                  elevation: ElevationEnum.dp12.value,
                   child: const Text('grafico'),
                 ),
                 Column(
