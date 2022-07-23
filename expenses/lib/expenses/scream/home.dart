@@ -34,17 +34,14 @@ class Home extends StatelessWidget {
             margin: const EdgeInsets.all(10),
             padding: const EdgeInsets.all(10),
             child: Column(
-              // mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment:
-                  CrossAxisAlignment.stretch, // cumpritoda a tela
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Card(
                   elevation: ElevationEnum.dp10.value,
                   child: const Text('grafico'),
                 ),
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: _trasactions
                       .map(
                           (transaction) => CardWidget(transaction: transaction))
