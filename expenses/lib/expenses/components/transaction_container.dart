@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:expenses_app/expenses/components/transaction_form.dart';
 import 'package:expenses_app/expenses/components/transaction_list.dart';
 import 'package:expenses_app/expenses/model/transction.dart';
@@ -18,13 +16,14 @@ class _State extends State<TransactionContainer> {
 
   _addTransaction(String title, double value) {
     final newTransaction = Transaction(
-        id: const Uuid().toString(),
+        id: const Uuid().v4(),
         title: title,
         value: value,
         date: DateTime.now());
 
     setState(() {
       _transactions.add(newTransaction);
+      _transactions.sort((a, b) => b.date.compareTo(a.date));
     });
   }
 
@@ -32,10 +31,8 @@ class _State extends State<TransactionContainer> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        TrasactionForm(onSave: _addTransaction),
         TransactionList(transactions: _transactions),
-        TrasactionForm(
-            onSave: (String title, double value) =>
-                _addTransaction(title, value))
       ],
     );
   }

@@ -9,11 +9,11 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: const Text('Despesas Pessoais')),
-        body: SingleChildScrollView(
-          child: Container(
-            width: double.infinity,
-            margin: const EdgeInsets.all(10),
-            padding: const EdgeInsets.all(10),
+        body: Container(
+          width: double.infinity,
+          margin: const EdgeInsets.all(5),
+          padding: const EdgeInsets.all(5),
+          child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.stretch,

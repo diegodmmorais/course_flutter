@@ -5,9 +5,9 @@ import 'package:intl/intl.dart';
 
 class TransactionCard extends StatelessWidget {
   final Transaction transaction;
+  final _numberFormat = NumberFormat.simpleCurrency(locale: "pt_Br");
 
-  const TransactionCard({Key? key, required this.transaction})
-      : super(key: key);
+  TransactionCard({Key? key, required this.transaction}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +17,14 @@ class TransactionCard extends StatelessWidget {
         children: [
           Container(
             alignment: Alignment.topLeft,
-            width: 140.0,
+            width: 113.0,
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(5)),
                 border: Border.all(color: Colors.purple, width: 1.5)),
             margin: const EdgeInsets.fromLTRB(10, 10, 2, 10),
             padding: const EdgeInsets.all(10),
             child: Text(
-              'R\$ ${transaction.value.toStringAsFixed(2)}',
+              _numberFormat.format(transaction.value),
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 12,
@@ -37,11 +37,16 @@ class TransactionCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(transaction.title,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
+                  child: Text(
+                    transaction.title,
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
-                    )),
+                    ),
+                  ),
+                ),
                 Text(
                   DateFormat('d MMM y HH:mm').format(transaction.date),
                   style: const TextStyle(color: Colors.blueGrey, fontSize: 12),

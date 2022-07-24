@@ -1,8 +1,8 @@
-import 'dart:ffi';
-
 import 'package:expenses_app/expenses/constants/elevation_enum.dart';
+import 'package:expenses_app/expenses/util/currency_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 
 class TrasactionForm extends StatefulWidget {
   final String labelTextTitle;
@@ -52,11 +52,13 @@ class _TrasactionFormState extends State<TrasactionForm> {
                   },
                 ),
                 TextFormField(
+                  maxLength: 15,
                   controller: valorController,
-                  maxLength: 10,
                   decoration: InputDecoration(labelText: widget.labelTextValue),
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    CurrencyInputFormatter()
+                  ],
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Valor não informado';
@@ -73,8 +75,13 @@ class _TrasactionFormState extends State<TrasactionForm> {
                               const SnackBar(content: Text('Transação salva')),
                             );
                             final title = tituloController.text;
-                            final value = double.parse(valorController.text);
-                            widget._onSave(title, value);
+                            final value = valorController.text
+                                .replaceAll('R\$', '')
+                                .replaceAll('.', '')
+                                .replaceAll(RegExp('\\s+'), '')
+                                .replaceAll(',', '.');
+
+                            widget._onSave(title, double.parse(value));
                             tituloController.text = '';
                             valorController.text = '';
                           }
