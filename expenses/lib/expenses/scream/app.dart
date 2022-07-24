@@ -14,6 +14,6 @@ class ExpensesApp extends StatelessWidget {
             secondary: Colors.deepPurple,
           ),
         ),
-        home: Home(key: const Key('Home')));
+        home: const Home(key: Key('Home')));
   }
 }

@@ -27,7 +27,7 @@ class TransactionCard extends StatelessWidget {
               'R\$ ${transaction.value.toStringAsFixed(2)}',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 14,
+                fontSize: 12,
                 color: Colors.purple,
               ),
             ),

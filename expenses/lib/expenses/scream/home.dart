@@ -22,7 +22,7 @@ class Home extends StatelessWidget {
                   elevation: ElevationEnum.dp12.value,
                   child: const Text('grafico'),
                 ),
-                TransactionContainer()
+                const TransactionContainer()
               ],
             ),
           ),
