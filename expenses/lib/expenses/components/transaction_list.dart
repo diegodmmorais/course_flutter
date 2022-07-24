@@ -11,10 +11,10 @@ class TransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 420,
-      child: ListView(
-        children: transactions
-            .map((transaction) => TransactionCard(transaction: transaction))
-            .toList(),
+      child: ListView.builder(
+        itemCount: transactions.length,
+        itemBuilder: (ctx, index) =>
+            TransactionCard(transaction: transactions[index]),
       ),
     );
   }

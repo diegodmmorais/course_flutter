@@ -53,6 +53,8 @@ class _TrasactionFormState extends State<TrasactionForm> {
                 ),
                 TextFormField(
                   maxLength: 15,
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
                   controller: valorController,
                   decoration: InputDecoration(labelText: widget.labelTextValue),
                   inputFormatters: [
