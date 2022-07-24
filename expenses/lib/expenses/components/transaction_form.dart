@@ -23,35 +23,8 @@ class TrasactionForm extends StatefulWidget {
 
 class _TrasactionFormState extends State<TrasactionForm> {
   final tituloController = TextEditingController();
-
   final valorController = TextEditingController();
-
-  var _validTitle = false;
-  var _validValue = false;
-
-  _validateTitle(String value) {
-    if (value.isEmpty) {
-      setState(() {
-        _validTitle = false;
-      });
-    } else {
-      setState(() {
-        _validTitle = true;
-      });
-    }
-  }
-
-  _validateValue(String value) {
-    if (value.isEmpty) {
-      setState(() {
-        _validValue = false;
-      });
-    } else {
-      setState(() {
-        _validValue = true;
-      });
-    }
-  }
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -59,42 +32,56 @@ class _TrasactionFormState extends State<TrasactionForm> {
       elevation: ElevationEnum.dp12.value,
       child: Container(
         margin: const EdgeInsets.all(10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            TextField(
-              onChanged: (value) => _validateTitle(value),
-              controller: tituloController,
-              maxLength: 30,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                  labelText: widget.labelTextTitle,
-                  errorText: _validTitle ? null : 'Titulo não informado'),
-            ),
-            TextField(
-              onChanged: (value) => _validateValue(value),
-              controller: valorController,
-              maxLength: 10,
-              decoration: InputDecoration(
-                  labelText: widget.labelTextValue,
-                  errorText: _validValue ? null : 'Valor não informado'),
-              keyboardType: TextInputType.number,
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-            ),
-            Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                child: ElevatedButton(
-                    onPressed: () {
-                      if (_validTitle || _validValue) {
-                        final title = tituloController.text;
-                        final value = double.parse(valorController.text);
-                        widget._onSave(title, value);
-                      }
-                    },
-                    child: const Text("Nova Transação"))),
-          ],
-        ),
+        child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                TextFormField(
+                  onChanged: (value) => {},
+                  maxLength: 30,
+                  keyboardType: TextInputType.text,
+                  controller: tituloController,
+                  decoration: InputDecoration(labelText: widget.labelTextTitle),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Titulo não informado';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: valorController,
+                  maxLength: 10,
+                  decoration: InputDecoration(labelText: widget.labelTextValue),
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Valor não informado';
+                    }
+                    return null;
+                  },
+                ),
+                Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Transação salva')),
+                            );
+                            final title = tituloController.text;
+                            final value = double.parse(valorController.text);
+                            widget._onSave(title, value);
+                            tituloController.text = '';
+                            valorController.text = '';
+                          }
+                        },
+                        child: const Text("Nova Transação"))),
+              ],
+            )),
       ),
     );
   }
