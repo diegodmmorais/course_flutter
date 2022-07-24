@@ -70,9 +70,7 @@ class _TrasactionFormState extends State<TrasactionForm> {
                     return null;
                   },
                   textInputAction: TextInputAction.next,
-                  onFieldSubmitted: (_) => {
-                    valorController
-                  },
+                  onFieldSubmitted: (_) => {valorController},
                 ),
                 TextFormField(
                   maxLength: 15,
