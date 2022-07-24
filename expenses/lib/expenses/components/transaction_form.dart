@@ -1,8 +1,9 @@
+import 'dart:ffi';
+
 import 'package:expenses_app/expenses/constants/elevation_enum.dart';
 import 'package:expenses_app/expenses/util/currency_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 
 class TrasactionForm extends StatefulWidget {
   final String labelTextTitle;
@@ -25,6 +26,24 @@ class _TrasactionFormState extends State<TrasactionForm> {
   final tituloController = TextEditingController();
   final valorController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  _submit() {
+    if (_formKey.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Transação salva')),
+      );
+      final title = tituloController.text;
+      final value = valorController.text
+          .replaceAll('R\$', '')
+          .replaceAll('.', '')
+          .replaceAll(RegExp('\\s+'), '')
+          .replaceAll(',', '.');
+
+      widget._onSave(title, double.parse(value));
+      tituloController.text = '';
+      valorController.text = '';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +69,10 @@ class _TrasactionFormState extends State<TrasactionForm> {
                     }
                     return null;
                   },
+                  textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (_) => {
+                    valorController
+                  },
                 ),
                 TextFormField(
                   maxLength: 15,
@@ -67,27 +90,13 @@ class _TrasactionFormState extends State<TrasactionForm> {
                     }
                     return null;
                   },
+                  textInputAction: TextInputAction.go,
+                  onFieldSubmitted: (_) => _submit(),
                 ),
                 Padding(
                     padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                     child: ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Transação salva')),
-                            );
-                            final title = tituloController.text;
-                            final value = valorController.text
-                                .replaceAll('R\$', '')
-                                .replaceAll('.', '')
-                                .replaceAll(RegExp('\\s+'), '')
-                                .replaceAll(',', '.');
-
-                            widget._onSave(title, double.parse(value));
-                            tituloController.text = '';
-                            valorController.text = '';
-                          }
-                        },
+                        onPressed: _submit,
                         child: const Text("Nova Transação"))),
               ],
             )),
