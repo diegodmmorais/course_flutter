@@ -27,7 +27,7 @@ class _TransactionCardState extends State<TransactionCard> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            alignment: Alignment.centerLeft,
+            alignment: Alignment.center,
             width: 130.0,
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(5)),
