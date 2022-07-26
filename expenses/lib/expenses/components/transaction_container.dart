@@ -1,38 +1,35 @@
-import 'package:expenses_app/expenses/components/transaction_form.dart';
 import 'package:expenses_app/expenses/components/transaction_list.dart';
 import 'package:expenses_app/expenses/model/transction.dart';
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
 
 class TransactionContainer extends StatefulWidget {
-  const TransactionContainer({Key? key}) : super(key: key);
+  final List<Transaction> transactions;
+  final Function(String title, double value, [String? id]) addTransaction;
+  final GlobalKey<ScaffoldState> scaffoldKey;
+  const TransactionContainer(
+      {Key? key,
+      required this.transactions,
+      required this.addTransaction,
+      required this.scaffoldKey})
+      : super(key: key);
 
   @override
-  State<TransactionContainer> createState() => _State();
+  State<TransactionContainer> createState() => _State(transactions);
 }
 
 class _State extends State<TransactionContainer> {
-  final _transactions = <Transaction>[];
+  final List<Transaction> transactions;
 
-  _addTransaction(String title, double value) {
-    final newTransaction = Transaction(
-        id: const Uuid().v4(),
-        title: title,
-        value: value,
-        date: DateTime.now());
-
-    setState(() {
-      _transactions.add(newTransaction);
-      _transactions.sort((a, b) => b.date.compareTo(a.date));
-    });
-  }
+  _State(this.transactions);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TrasactionForm(onSave: _addTransaction),
-        TransactionList(transactions: _transactions),
+        TransactionList(
+            transactions: transactions,
+            addTransaction: widget.addTransaction,
+            scaffoldKey: widget.scaffoldKey),
       ],
     );
   }

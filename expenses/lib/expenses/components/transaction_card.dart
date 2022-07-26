@@ -3,28 +3,39 @@ import 'package:expenses_app/expenses/model/transction.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class TransactionCard extends StatelessWidget {
+class TransactionCard extends StatefulWidget {
   final Transaction transaction;
-  final _numberFormat = NumberFormat.simpleCurrency(locale: "pt_Br");
+  final Function() _onEdit;
 
-  TransactionCard({Key? key, required this.transaction}) : super(key: key);
+  const TransactionCard(
+      {Key? key, required this.transaction, required Function() onEdit})
+      : _onEdit = onEdit,
+        super(key: key);
+
+  @override
+  State<TransactionCard> createState() => _TransactionCardState();
+}
+
+class _TransactionCardState extends State<TransactionCard> {
+  final _numberFormat = NumberFormat.simpleCurrency(locale: "pt_Br");
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: ElevationEnum.dp12.value,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            alignment: Alignment.topLeft,
-            width: 113.0,
+            alignment: Alignment.centerLeft,
+            width: 130.0,
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(5)),
                 border: Border.all(color: Colors.purple, width: 1.5)),
             margin: const EdgeInsets.fromLTRB(10, 10, 2, 10),
             padding: const EdgeInsets.all(10),
             child: Text(
-              _numberFormat.format(transaction.value),
+              _numberFormat.format(widget.transaction.value),
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 12,
@@ -32,26 +43,34 @@ class TransactionCard extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            margin: const EdgeInsets.fromLTRB(10, 10, 2, 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
-                  child: Text(
-                    transaction.title,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(bottom: 10),
+                child: Text(
+                  widget.transaction.title.length > 16
+                      ? widget.transaction.title.substring(0, 17)
+                      : widget.transaction.title,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                Text(
-                  DateFormat('d MMM y HH:mm').format(transaction.date),
-                  style: const TextStyle(color: Colors.blueGrey, fontSize: 12),
-                )
-              ],
+              ),
+              Text(
+                DateFormat('d MMM y HH:mm').format(widget.transaction.date),
+                style: const TextStyle(color: Colors.blueGrey, fontSize: 10),
+              ),
+            ],
+          ),
+          Container(
+            alignment: Alignment.centerRight,
+            child: IconButton(
+              color: Colors.deepPurple,
+              icon: const Icon(Icons.edit),
+              onPressed: () => widget._onEdit(),
             ),
           )
         ],

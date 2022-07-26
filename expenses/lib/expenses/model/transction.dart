@@ -1,10 +1,10 @@
 class Transaction {
   final String id;
-  final String title;
-  final double value;
+  late String title;
+  late double value;
   final DateTime date;
 
-  const Transaction(
+  Transaction(
       {required this.id,
       required this.title,
       required this.value,
